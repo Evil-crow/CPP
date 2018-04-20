@@ -1,0 +1,1 @@
+Before Linux implements the epoll event driven mechanism, we usually choose to use select or poll to realize concurrent service programs. In the age of big data, high concurrency, clustering and other nouns, select and poll are becoming more and more limited, and the limelight has been dominated by epoll.
