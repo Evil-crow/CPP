@@ -66,6 +66,21 @@ OutputIterator filter_template(InputIterator first, InputIterator last, OutputIt
     return out;
 }
 
+
+// 此处的实现思路是: 先进行排序, 之后find_if泛型算法找到分界点, 之后使用vector容器的erase成员函数(方法)进行处理
+vector<int> sub_vec(const vector<int> &vec, int val)
+{
+    vector<int> local_vec(vec);
+
+    sort(local_vec.begin(), local_vec.end());
+    vector<int>::iterator iter = find_if(local_vec.begin(), 
+                                         local_vec.end(), 
+                                         bind2nd(greater<int>(), val));
+    local_vec.erase(iter, local_vec.end());
+    
+    return local_vec;
+}
+
 int main(void)
 {
     int size = 8;
@@ -78,3 +93,12 @@ int main(void)
     filter_template(arr, arr+size, arr2, size, less<int>());
     filter_template(ivec.begin(), ivec.end(), ivec_bak.begin(), size, greater<int>());
 }
+
+/*
+ * 整个泛型算法的实现分为以下几步:
+ * 1. 简单地vector中求解 > 10 的内容
+ * 2. 传入val参数,使得指定比较大小
+ * 3. 传入函数指针,使得用户可以指定比较方式
+ * 4. 使用function object提高效率
+ * 5. 用function template重新实现,摆脱了vector容器的限制
+ */
