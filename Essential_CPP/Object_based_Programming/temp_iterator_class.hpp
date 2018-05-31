@@ -26,7 +26,7 @@ bool temp_iterator::operator !=(const temp_iterator &ths) const
     return (*this == ths);                    // 我们一般实现功能相同的函数,使用已经存在的成员函数
 }
 
-int temp_iterator::operator *(void)
+int temp_iterator::operator *(void) const
 {
     return index;
 }
@@ -38,7 +38,7 @@ temp_iterator &temp_iterator::operator ++(void)
     return *this;
 }
 
-temp_iterator temp_iterator::operator(int) ++(void)
+temp_iterator temp_iterator::operator++(int)
 {
     temp_iterator temp = *this;
 
